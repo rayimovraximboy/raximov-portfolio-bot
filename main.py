@@ -12,7 +12,7 @@ bot = telebot.TeleBot(TOKEN)
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     text = "Assalom alaykum, meni portfolio botimizga xush kelibsiz."
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("About me")
     btn2 = types.KeyboardButton("Contact")
     btn3 = types.KeyboardButton("Skills")
@@ -45,14 +45,18 @@ def contact_handler(message):
 
 @bot.message_handler(func=lambda message: message.text == "Skills")
 def skills_handler(message):
-    bot.send_message(message.chat.id, "Mening ko'nikmalarim: Python dasturlash tili va Telebot kutubxonasi  va  "
-    " Git hamda GitHub tizimlaridan foydalana olaman.")
+    bot.send_message(message.chat.id, "Mening ko'nikmalarim: Python dasturlash tili va Telebot kutubxonasi va"
+    "Git hamda GitHub tizimlaridan foydalana olaman.")
 
 @bot.message_handler(func=lambda message: message.text == "Projects")
 def projects_handler(message):
-    bot.send_message(message.chat.id, "1. Portfolio Bot - Men haqimdagi ma'lumotlarni, ko'nikmalarimni va loyihalarimni ulashuvchi interaktiv bot. "
-            "2. Lotin-Kirill Translit Bot - Foydalanuvchi yuborgan matnni Lotin alifbosidan Kirillga va Kirill alifbosidan Lotinga bir zumda o'tkazib beruvchi foydali bot.")
+    text = (
+        "Loyihalarim: \n"
+        "Kirildan lotinga/lotindan kirirlga o'tkazuvchi telegram bot [bot](https://t.me/@Raximboy_10_bot) \n"
+        "Shaxsiy portfolio bot [bot](https://t.me/@Raximboy_Portfolio_bot) \n"
+    )
 
+    bot.send_message(message.chat.id, text, parse_mode='Markdown')
 bot.infinity_polling()
 
 bot.delete_webhook(drop_pending_updates=True)
